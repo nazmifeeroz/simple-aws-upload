@@ -67,6 +67,7 @@ const uploadFn = async (credentials) => {
         Bucket: bucket,
         Key: `${credentials.identityId}/${fileName}`,
         Body: file,
+        ContentType: file.type,
       })
     )
 

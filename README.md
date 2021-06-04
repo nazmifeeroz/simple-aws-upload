@@ -17,3 +17,5 @@ Policy reference - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_po
 Generate presigned url - https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
 
 S3 CRUD example - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html
+
+SDK S3 client docs - https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html
