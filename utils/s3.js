@@ -5,7 +5,6 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { withCognitoCreds } from "./cognito"
 
 const bucket = import.meta.env.VITE_APP_S3_BUCKET
 const region = import.meta.env.VITE_APP_COGNITO_REGION
@@ -44,7 +43,7 @@ const listItemsFn = async (credentials) => {
     const { encoded } = filenameGenerator(Key)
     document
       .querySelector(`#${encoded}`)
-      .addEventListener("click", () => view(Key))
+      .addEventListener("click", () => view(credentials, Key))
   })
 }
 
@@ -80,7 +79,7 @@ const uploadFn = async (credentials) => {
   }
 }
 
-const getPresignedUrl = (credentials) => async (key) => {
+const view = async (credentials, key) => {
   const s3Client = new S3Client({
     region,
     credentials,
@@ -93,17 +92,7 @@ const getPresignedUrl = (credentials) => async (key) => {
 
   const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 })
 
-  return url
-}
-
-const view = async (key) => {
-  const credentials = await withCognitoCreds()
-  const url = await getPresignedUrl(credentials)(key)
-
   window.open(url)
 }
 
-const listItems = () => withCognitoCreds(listItemsFn)
-const upload = () => withCognitoCreds(uploadFn)
-
-export { listItems, upload }
+export { listItemsFn, uploadFn }

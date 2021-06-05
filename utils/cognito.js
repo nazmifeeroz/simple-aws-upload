@@ -6,7 +6,7 @@ const identityPoolId = import.meta.env.VITE_APP_COGNITO_IDENTITY_POOL_ID
 const identityProvider = import.meta.env.VITE_APP_COGNITO_IDENTITY_PROVIDER
 const region = import.meta.env.VITE_APP_COGNITO_REGION
 
-const withCognitoCreds = async (fn) => {
+const curryCognitoCreds = async () => {
   const creds = new FromCognitoIdentityPool({
     client: new CognitoIdentityClient({
       region,
@@ -19,9 +19,7 @@ const withCognitoCreds = async (fn) => {
 
   const credentials = await creds()
 
-  if (typeof fn === "function") return fn(credentials)
-
-  return credentials
+  return (fn) => (val) => fn(credentials, val)
 }
 
-export { withCognitoCreds }
+export { curryCognitoCreds }

@@ -1,6 +1,7 @@
 import "./style.css"
+import { curryCognitoCreds } from "./utils/cognito"
 import { idToken } from "./utils/misc"
-import { listItems, upload } from "./utils/s3"
+import { listItemsFn, uploadFn } from "./utils/s3"
 
 const App = async () => {
   if (!idToken) {
@@ -13,6 +14,11 @@ const App = async () => {
       </div>
     `)
   }
+
+  const withCognitoCreds = await curryCognitoCreds()
+
+  const listItems = withCognitoCreds(listItemsFn)
+  const upload = withCognitoCreds(uploadFn)
 
   document.querySelector("#app").innerHTML = `
     <h1 id="title">AWS Simple Cognito Auth</h1>
