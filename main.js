@@ -10,8 +10,7 @@ const App = async () => {
       <div id="content">
         <a id="login-link" href="${
           import.meta.env.VITE_APP_COGNITO_LOGIN_URL
-        }">Sign In</a><br />
-        login url: ${import.meta.env.VITE_APP_COGNITO_LOGIN_URL}
+        }">Sign In</a>
       </div>
     `)
   }
