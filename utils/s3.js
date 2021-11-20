@@ -7,7 +7,7 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 
 const bucket = import.meta.env.VITE_APP_S3_BUCKET
-const region = import.meta.env.VITE_APP_COGNITO_REGION
+const region = import.meta.env.VITE_APP_BUCKET_REGION
 
 const filenameGenerator = (key) => {
   const name = key.split("/")[1]
